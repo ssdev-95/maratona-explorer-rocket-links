@@ -1,0 +1,6 @@
+{
+  "extends": ["prettier"],
+  "rules": {
+    "no-unused-vars": "warning"
+  }
+}
