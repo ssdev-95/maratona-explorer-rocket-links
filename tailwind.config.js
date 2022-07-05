@@ -8,7 +8,10 @@ module.exports = {
           33: "rgb(123,255,123)",
           glass: "rgba(123,255,123,0.33)",
         },
-        darkblue: { 900: "#03000D" },
+        darkblue: {
+					glass: "rgba(80,90,190,0.33)",
+					900: "#03000D"
+				},
         white: "#F0F2F5",
       },
       backgroundImage: {
