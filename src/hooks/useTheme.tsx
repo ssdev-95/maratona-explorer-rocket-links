@@ -1,59 +1,58 @@
 import {
-	useState,
-	useContext,
-	createContext,
-	ReactNode,
-	useEffect
+  useState,
+  useContext,
+  createContext,
+  ReactNode,
+  useEffect,
 } from "react"
 
 type ContextData = {
-	isDarkModeEnabled: boolean;
-	toggleDarkMode: ()=>void;
+  isDarkModeEnabled: boolean
+  toggleDarkMode: () => void
 }
 
 type ProviderProps = {
-	children: ReactNode;
+  children: ReactNode
 }
 
 const ThemeContext = createContext({} as ContextData)
 
 const themeKey = "@rocket-link:theme"
-export function ThemeProvider({children}:ProviderProps) {
-	const [
-		isDarkModeEnabled,
-		setIsDarkModeEnabled
-	] = useState(true)
+export function ThemeProvider({ children }: ProviderProps) {
+  const [isDarkModeEnabled, setIsDarkModeEnabled] = useState(true)
 
-	function toggleDarkMode() {
-		const theme = !isDarkModeEnabled
-		setIsDarkModeEnabled(theme)
-		if(theme) {
-			localStorage.setItem(themeKey,"dark")
-		} else {
-			localStorage.setItem(themeKey,"light")
-		}
-	}
+  function toggleDarkMode() {
+    const theme = !isDarkModeEnabled
+    setIsDarkModeEnabled(theme)
+    if (theme) {
+      localStorage.setItem(themeKey, "dark")
+    } else {
+      localStorage.setItem(themeKey, "light")
+    }
+  }
 
-	useEffect(()=>{
-		const stored = localStorage.getItem(themeKey)
+  useEffect(() => {
+    const stored = localStorage.getItem(themeKey)
 
-		if(stored === "light") {
-			setIsDarkModeEnabled(false)
-		} else {
-			setIsDarkModeEnabled(true)
-		}
-	},[])
+    if (stored === "light") {
+      setIsDarkModeEnabled(false)
+    } else {
+      setIsDarkModeEnabled(true)
+    }
+  }, [])
 
-	return (
-		<ThemeContext.Provider value={{
-			isDarkModeEnabled,
-			toggleDarkMode
-		}}>
-			{children}
-		</ThemeContext.Provider>
-	)
+  return (
+    <ThemeContext.Provider
+      value={{
+        isDarkModeEnabled,
+        toggleDarkMode,
+      }}
+    >
+      {children}
+    </ThemeContext.Provider>
+  )
 }
 
 export function useTheme() {
-	return useContext(ThemeContext)
+  return useContext(ThemeContext)
 }
